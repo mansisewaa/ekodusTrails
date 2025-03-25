@@ -4,16 +4,16 @@
 <section class="hero">
     <section class="position-relative w-100 hero-container d-flex align-items-center justify-content-center bg-dark">
         <!-- Background Image Carousel -->
-        <div id="heroCarousel" class="carousel slide position-absolute top-0 start-0 w-100 h-100" data-bs-ride="carousel">
+        <div id="heroCarousel" class="carousel slide position-absolute top-0 start-0 w-100 " data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="{{asset('images/bg4.jpg')}}" class="d-block w-100 h-100" alt="Slide 1">
+                    <img src="{{asset('images/bg4.jpg')}}" class="d-block w-100 " alt="Slide 1">
                 </div>
                 <div class="carousel-item">
-                    <img src="{{asset('images/bg2.jpg')}}" class="d-block w-100 h-100" alt="Slide 2">
+                    <img src="{{asset('images/bg2.jpg')}}" class="d-block w-100 " alt="Slide 2">
                 </div>
                 <div class="carousel-item">
-                    <img src="{{asset('images/bg3.jpg')}}" class="d-block w-100 h-100" alt="Slide 3">
+                    <img src="{{asset('images/bg3.jpg')}}" class="d-block w-100 " alt="Slide 3">
                 </div>
             </div>
 
@@ -44,7 +44,7 @@
             <p class="lead animate-fade-in-2">
                 <i>Discover breathtaking landscapes, thrilling experiences, and unforgettable moments.</i>
             </p>
-            <a href="#" class="btn btn-primary btn-lg animate-fade-in-3">Book Now</a>
+            <!-- <a href="#" class="btn btn-primary btn-lg animate-fade-in-3">Book Now</a> -->
         </div>
     </section>
 </section>
@@ -302,7 +302,7 @@
 
 <section class="testimonial-section">
     <div class="container-fluid px-3 px-sm-5 my-5 text-center">
-        <h4 class="mb-5 font-weight-bold">What Our Client Say</h4>
+        <h2 class="mb-5 font-weight-bold">What Our Client Say</h2>
         <div class="owl-carousel owl-theme">
             <div class="item first prev">
                 <div class="card border-0 py-3 px-4">

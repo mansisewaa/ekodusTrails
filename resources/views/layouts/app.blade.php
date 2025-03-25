@@ -23,26 +23,41 @@
 
 <body>
     <!-- Topbar with Address & Phone -->
-    <div class="topbar d-flex justify-content-between align-items-center p-2">
-        <p><i class="fa fa-location"></i> 123 Street, City, Country | &nbsp;&nbsp;<i class="fa fa-phone"></i> +123 456 7890 </p>
-        <!-- <p><a href="" class="btn btn-danger btn-sm"></a> </p> -->
-
+    <div class="topbar">
+        <div class="">
+            <div class="topbar-content">
+                <p class="location">
+                    <i class="fa fa-location"></i> Sankri, Uttarakhand
+                </p>
+                <p class="contact">
+                    <i class="fa fa-phone"></i> +123 456 7890
+                </p>
+            </div>
+        </div>
     </div>
 
+
     <!-- Navbar -->
-    <header class="d-flex justify-content-between align-items-center  bg-light shadow-sm">
-        <div class="logo s-4">Ekodus Trails</div>
-        <nav>
+    <header class="d-flex justify-content-between align-items-center bg-light shadow-sm">
+        <div class="logo">Ekodus Trails</div>
+
+        <!-- Hamburger Menu (Only Visible on Mobile) -->
+        <div class="menu-toggle d-block d-md-none" id="mobileMenuToggle">
+            <i class="fa fa-bars"></i>
+        </div>
+
+        <nav class="nav-links-container" id="mobileNav">
             <ul class="nav-links d-flex list-unstyled mb-0">
-                <li class="px-3"><a href="{{route('home')}}" class=" text-decoration-none">Home</a></li>
-                <li class="px-3"><a href="{{route('about-us')}}" class=" text-decoration-none">About</a></li>
-                <li class="px-3"><a href="{{route('our-treks')}}" class=" text-decoration-none">Our Treks</a></li>
-                <!-- <li class="px-3"><a href="{{route('gallery')}}" class=" text-decoration-none">Gallery</a></li> -->
-                <li class="px-3"><a href="{{route('contact-us')}}" class=" text-decoration-none">Contact</a></li>
+                <li class="px-3"><a href="{{route('home')}}" class="text-decoration-none">Home</a></li>
+                <li class="px-3"><a href="{{route('about-us')}}" class="text-decoration-none">About</a></li>
+                <li class="px-3"><a href="{{route('our-treks')}}" class="text-decoration-none">Our Treks</a></li>
+                <li class="px-3"><a href="{{route('contact-us')}}" class="text-decoration-none">Contact</a></li>
                 <li class="px-3"><a href="" data-bs-toggle="modal" data-bs-target="#enquiryModal" class="custom-btn">Enquiry</a></li>
             </ul>
         </nav>
     </header>
+
+
 
     @yield('content')
 
@@ -271,6 +286,22 @@
             }
         });
 
+    });
+
+
+</script>
+<script>
+    $(document).ready(function () {
+        $("#mobileMenuToggle").click(function () {
+            $("#mobileNav").toggleClass("show");
+        });
+
+        // Close menu when clicking outside
+        $(document).click(function (event) {
+            if (!$(event.target).closest("#mobileMenuToggle, #mobileNav").length) {
+                $("#mobileNav").removeClass("show");
+            }
+        });
     });
 </script>
 
