@@ -132,7 +132,7 @@
     /* Hover & Focus Effects */
     select.form-control:hover,
     select.form-control:focus {
-        border-color:rgb(87, 63, 47);
+        border-color: rgb(87, 63, 47);
         box-shadow: 0 0 8px rgba(255, 106, 0, 0.3);
         outline: none;
     }
@@ -191,14 +191,87 @@
         font-weight: bold;
     }
 
-    .itinerary-day {
+    /* .itinerary-day {
         margin-bottom: 20px;
         padding: 15px;
         border-left: 5px solid #ff6a00;
         background: white;
         border-radius: 5px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    } */
+
+    /* Timeline Layout */
+    .timeline {
+        position: relative;
+        /* max-width: 800px; */
+        margin: 0 auto;
+        padding: 20px 0;
     }
+
+    /* Timeline Item */
+    .timeline-item {
+        position: relative;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    /* Timeline Icon */
+    .timeline-icon {
+        width: 50px;
+        height: 50px;
+        background: #ff6a00;
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.2rem;
+        margin-right: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Timeline Content */
+    .timeline-content {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        flex: 1;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .timeline-content:hover {
+        transform: translateY(-5px);
+    }
+
+    .timeline-title {
+        font-size: 18px !important;
+        color: #ff6a00;
+        margin-bottom: 5px;
+    }
+
+    /* Initially Hidden Full Description */
+    .full-description {
+        display: none;
+        margin-top: 10px;
+        font-size: 13px !important;
+        color: #333;
+    }
+
+    .short-description {
+        font-size: 14px;
+        color: #333;
+    }
+
+    /* Show full description when active */
+    .timeline-item.active .full-description {
+        display: block;
+    }
+
+
+
 
     .accordion-button {
         font-weight: bold;
@@ -247,10 +320,10 @@
     }
 
     .key-points-section {
-        background: #f8f9fa;
-        padding: 20px;
+        /* background: #f8f9fa; */
+        /* padding: 20px; */
         border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
     }
 
     .key-points-box,
@@ -467,23 +540,51 @@
 
 
 
-
 <!-- Itinerary Section -->
 <div class="container itinerary-section my-5">
-    <h2 class="text-left">Trek Itinerary</h2>
-    <div class="itinerary-day">
-        <h4>Day 1: Arrival in Kathmandu</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus laoreet libero vel erat scelerisque.</p>
-    </div>
-    <div class="itinerary-day">
-        <h4>Day 2: Kathmandu Sightseeing & Preparation</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec imperdiet, magna ut consectetur.</p>
-    </div>
-    <div class="itinerary-day">
-        <h4>Day 3: Drive to Syabrubesi</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel lorem ut metus scelerisque aliquet.</p>
+    <h2 class="text-left mb-4">Trek Itinerary</h2>
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="timeline-icon"><i class="fas fa-plane-arrival"></i></div>
+            <div class="timeline-content">
+                <h4 class="timeline-title">Day 1: Arrival in Kathmandu</h4>
+                <p class="short-description">Click to see more details...</p>
+                <div class="full-description">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Vivamus laoreet libero vel erat scelerisque. Curabitur nec justo elit.
+                        Suspendisse at libero et lectus sodales pharetra. Duis tristique metus.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-icon"><i class="fas fa-city"></i></div>
+            <div class="timeline-content">
+                <h4 class="timeline-title">Day 2: Kathmandu Sightseeing</h4>
+                <p class="short-description">Click to see more details...</p>
+                <div class="full-description">
+                    <p>Donec imperdiet, magna ut consectetur egestas, mi libero interdum sapien,
+                        eu tempor dui nisl ut ligula. Curabitur vel purus vitae velit bibendum euismod.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-icon"><i class="fas fa-bus"></i></div>
+            <div class="timeline-content">
+                <h4 class="timeline-title">Day 3: Drive to Syabrubesi</h4>
+                <p class="short-description">Click to see more details...</p>
+                <div class="full-description">
+                    <p>Integer vel lorem ut metus scelerisque aliquet.
+                        Duis at felis ac felis pellentesque ultrices.
+                        Pellentesque habitant morbi tristique senectus et netus et malesuada.</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+
 
 <!-- Inclusions & Exclusions -->
 <div class="container my-5">
@@ -587,5 +688,16 @@
 
         isInINR = !isInINR; // Toggle currency state
     }
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const timelineItems = document.querySelectorAll(".timeline-item");
+
+    timelineItems.forEach(item => {
+        item.addEventListener("click", function () {
+            this.classList.toggle("active");
+        });
+    });
+});
 </script>
 @endsection
