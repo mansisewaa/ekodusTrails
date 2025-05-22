@@ -1,0 +1,568 @@
+/* Animation Keyframes */
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes bounce {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-20px);
+    }
+    60% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes drawPath {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes mountainRise {
+    from {
+      transform: translateY(100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes breathe {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.03);
+    }
+  }
+
+  /* Preloader Animation */
+  .preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .preloader-finish {
+    opacity: 0;
+  }
+
+  .preloader-mountain {
+    width: 100px;
+    height: 100px;
+    position: relative;
+  }
+
+  .preloader-mountain:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 86px solid #2c6e49;
+    animation: pulse 1.5s infinite;
+  }
+
+  .preloader-mountain:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 50px solid #e76f51;
+    animation: pulse 1.5s infinite 0.5s;
+  }
+
+  /* Hero Section Animations */
+  .hero-text h1 {
+    animation: fadeInDown 1.2s ease-out;
+  }
+
+  .hero-text p {
+    animation: fadeInUp 1.2s ease-out 0.3s forwards;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+
+  .hero-text .btn {
+    animation: fadeInUp 1.2s ease-out 0.6s forwards;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+
+  /* Animated Mountain Background */
+  .mountain-silhouette {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    background-image: url("/images/mountain-silhouette.svg");
+    background-repeat: repeat-x;
+    background-position: bottom;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: all 1.5s ease-out;
+  }
+
+  .mountain-animate {
+    opacity: 0.7;
+    transform: translateY(0);
+  }
+
+  /* Trek Card Animations */
+  .card-overlay {
+    overflow: hidden;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .card-overlay:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-content {
+    transform: translateY(0);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s ease;
+  }
+
+  .card-content-hover {
+    transform: translateY(-10px);
+    background: rgba(0, 0, 0, 0.85);
+  }
+
+  .card-overlay:hover img {
+    transform: scale(1.1);
+  }
+
+  .card-overlay img {
+    transition: transform 0.5s ease;
+  }
+
+  .card-overlay .btn {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-overlay .btn:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .card-overlay .btn:hover:after {
+    left: 100%;
+  }
+
+  /* Service Cards Animation */
+  .service-card {
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .service-card:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(231, 111, 81, 0.2) 0%, rgba(44, 110, 73, 0.2) 100%);
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    transition: transform 0.5s ease-out;
+  }
+
+  .service-card:hover:before {
+    transform: scaleX(1);
+  }
+
+  .service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .service-icon {
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .service-card:hover .service-icon {
+    transform: scale(1.2) rotate(10deg);
+  }
+
+  /* Parallax Elements */
+  .parallax-element {
+    transition: transform 0.1s ease-out;
+  }
+
+  /* Trail Path Animation */
+  .trail-path path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawPath 3s ease-in-out forwards;
+  }
+
+  /* Stats Counter Animation */
+  .stats-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease-out;
+  }
+
+  .stats-item.animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .counter {
+    display: inline-block;
+  }
+
+  /* Testimonial Animation */
+  .testimonial-card {
+    transition: all 0.3s ease;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 10px;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .profile-pic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #2c6e49;
+    transition: all 0.3s ease;
+  }
+
+  .testimonial-card:hover .profile-pic {
+    transform: scale(1.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Owl Carousel Styling */
+  .owl-carousel {
+    display: block !important;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .owl-carousel .owl-stage-outer {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+  }
+
+  .owl-carousel .owl-nav button.owl-prev,
+  .owl-carousel .owl-nav button.owl-next {
+    background: #2c6e49;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .owl-carousel .owl-nav button.owl-prev {
+    left: -20px;
+  }
+
+  .owl-carousel .owl-nav button.owl-next {
+    right: -20px;
+  }
+
+  .owl-carousel .owl-dots {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .owl-carousel .owl-dot {
+    display: inline-block;
+    margin: 0 5px;
+  }
+
+  .owl-carousel .owl-dot span {
+    width: 10px;
+    height: 10px;
+    background: #ccc;
+    border-radius: 50%;
+    display: block;
+  }
+
+  .owl-carousel .owl-dot.active span {
+    background: #2c6e49;
+  }
+
+  /* FAQ Accordion Animation */
+  .accordion-button {
+    transition: all 0.3s ease;
+    background: linear-gradient(to right, #2c6e49, #2c6e49);
+    color: white;
+  }
+
+  .accordion-button:not(.collapsed) {
+    background: linear-gradient(to right, #2c6e49,#2c6e49);
+  }
+
+  .accordion-button .icon {
+    transition: transform 0.3s ease;
+  }
+
+  .accordion-button:not(.collapsed) .icon {
+    transform: rotate(90deg);
+  }
+
+  .accordion-body {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  /* Button Animations */
+  .custom-btn,
+  .learn-more-btn {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    display: inline-block;
+    padding: 10px 25px;
+    background: #e76f51;
+    color: white;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(231, 111, 81, 0.3);
+  }
+
+  .custom-btn:hover,
+  .learn-more-btn:hover {
+    background: #d35400;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(231, 111, 81, 0.4);
+  }
+
+  .custom-btn:before,
+  .learn-more-btn:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    z-index: -1;
+  }
+
+  .custom-btn:hover:before,
+  .learn-more-btn:hover:before {
+    left: 100%;
+  }
+
+  /* Scroll Indicator */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 2s infinite;
+  }
+
+  .scroll-indicator svg {
+    width: 30px;
+    height: 30px;
+    fill: white;
+  }
+
+  /* AOS Custom Animations */
+  [data-aos="nature-fade-up"] {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+    transition-property: transform, opacity;
+  }
+
+  [data-aos="nature-fade-up"].aos-animate {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  /* 3D Tilt Effect */
+  .tilt-card {
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
+  }
+
+  .tilt-card-content {
+    transform: translateZ(20px);
+  }
+
+  /* Image Reveal Animation */
+  .image-reveal {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .image-reveal:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #2c6e49;
+    transform: translateX(-100%);
+    animation: revealImage 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+  }
+
+  @keyframes revealImage {
+    0% {
+      transform: translateX(-100%);
+    }
+    50% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  /* Breathe Animation for Nature Elements */
+  .nature-breathe {
+    animation: breathe 5s ease-in-out infinite;
+  }
+
+  /* Responsive Animations */
+  @media (max-width: 768px) {
+    .mountain-silhouette {
+      height: 100px;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .owl-carousel .owl-nav button.owl-prev {
+      left: 0;
+    }
+
+    .owl-carousel .owl-nav button.owl-next {
+      right: 0;
+    }
+  }
+

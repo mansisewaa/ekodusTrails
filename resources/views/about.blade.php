@@ -1,574 +1,393 @@
-@extends('layouts.app')
+@extends('layouts.master')
 @section('styles')
 <style>
-    /* About Section Styling */
-    .about {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 80px 0;
-        /* background: #f8f9fa; */
-    }
-
-    .about .col-md-6 {
-        flex: 1;
-        padding: 0 40px;
-    }
-
-    /* Section Title */
-    .about h2 {
-        font-size: 36px;
-        font-weight: bold;
-        color: #ff5733;
-        margin-bottom: 20px;
-        position: relative;
-    }
-
-    .about h2 .highlight {
-        color: #333;
-    }
-
-    /* Paragraph Styling */
-    .about p {
-        font-size: 15px;
-        color: #444;
-        line-height: 1.7;
-        margin-bottom: 20px;
-    }
-
-    /* List Styling */
-    .about-list {
-        list-style: none;
-        padding: 0;
-        margin-bottom: 30px;
-    }
-
-    .about-list li {
-        font-size: 18px;
-        color: #333;
-        display: flex;
-        align-items: center;
-        margin-bottom: 12px;
-    }
-
-    .about-list li svg {
-        font-size: 22px;
-        color: #ff5733;
-        margin-right: 10px;
-    }
-
-
-    /* About Section */
-    .about {
-        padding: 50px 0;
-        /* background: #f9f9f9; */
-    }
-
-    .highlight {
-        color: #ff5733;
-        font-weight: bold;
-    }
-
-    /* Image Grid */
-    .image-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-    }
-
-    .image-box {
-        overflow: hidden;
-        border-radius: 10px;
-        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .image-box img {
-        width: 100%;
-        display: block;
-        transition: transform 0.3s ease;
-    }
-
-    .image-box:hover img {
-        transform: scale(1.05);
-    }
-
-    @media (max-width: 768px) {
-        .image-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    section {
-        margin-bottom: 2rem;
-        background-color: #f0f0f0 !important;
-    }
-
-    /* General Section Styling */
-    .section-title {
-        /* font-size: 36px; */
-        font-weight: bold;
-        color: #ff5733;
-        text-transform: uppercase;
-        margin-bottom: 20px;
-        letter-spacing: 1px;
-        position: relative;
-        margin-bottom: 1rem;
-    }
-
-    /* Add a decorative underline */
-    .section-title::after {
-        content: "";
-        display: block;
-        width: 80px;
-        height: 4px;
-        background: #ff5733;
-        margin: 10px auto 0;
-        border-radius: 2px;
-    }
-
-    /* Distinct Journey Section */
-    .journey-section {
-        padding: 40px 0;
-        background: linear-gradient(135deg, #fff 0%, #fef5f2 100%);
-        text-align: center;
-        border-top: 3px solid #ff5733;
-        border-bottom: 3px solid #ff5733;
-    }
-
-    /* Journey Text */
-    .journey-text {
-        font-size: 18px;
-        color: #444;
-        max-width: 750px;
-        margin: auto;
-        line-height: 1.7;
-        padding: 10px 0;
-    }
-
-    /* Responsive Styling */
-    @media (max-width: 768px) {
-        .journey-section {
-            padding: 50px 20px;
-        }
-
-        .section-title {
-            font-size: 30px;
-        }
-
-        .journey-text {
-            font-size: 16px;
-        }
-    }
-
-
-    .why-us {
-        background: #f8f9fa;
-        padding: 60px 0;
-        text-align: center;
-    }
-
-    /* .section-title {
-        font-size: 36px;
-        color: #ff5733;
-        margin-bottom: 30px;
-        font-weight: bold;
-    } */
-
-    /* Grid Layout */
-    .why-us-grid {
-        display: flex;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 10px;
-        justify-content: center;
-    }
-
-    /* Individual Card Styling */
-    .why-us-item {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .why-us-item:hover {
-        transform: translateY(-5px);
-        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    .why-us-item svg {
-        font-size: 41px !important;
-        padding: 12px !important;
-        margin-bottom: 15px;
-        color: #ff5733;
-        transition: transform 0.3s ease;
-    }
-
-    .why-us-item svg:hover {
-        transform: scale(1.1);
-    }
-
-    /* Icon Styling */
-    .why-us-item i {
-        font-size: 5rem;
-        margin-bottom: 15px;
-        color: #ff5733;
-        transition: transform 0.3s ease;
-    }
-
-
-    /* Text Styling */
-    .why-us-item h3 {
-        font-size: 17px;
-        margin-bottom: 10px;
-        color: #333;
-        font-weight: 600;
-    }
-
-    .why-us-item p {
-        font-size: 14px;
-        color: #555;
-    }
-
-    /* Fade-In Animation */
-    .why-us-item {
-        opacity: 0;
-        transform: translateY(30px);
-        animation: fadeInUp 0.6s ease forwards;
-    }
-
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    /* Founders */
-    .founders {
-        background: white;
-        padding: 50px 0;
-        text-align: center;
-    }
-
-    .founder-cards {
-        display: flex;
-        gap: 40px;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-    .founder {
-        background: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
-        text-align: center;
-        width: 250px;
-    }
-
-    .founder:hover {
-        transform: translateY(-5px);
-    }
-
-    .founder img {
-        width: 120px;
-        border-radius: 50%;
-        margin-bottom: 10px;
-    }
-
-    /* Core Values */
-    .core-values {
-        background: #ff5733;
+    .subpage-hero {
+        background-size: cover;
+        background-position: center;
         color: white;
-        padding: 50px 0;
         text-align: center;
+        padding: 100px 20px;
     }
 
-    .values-grid {
-        display: flex;
-        gap: 20px;
-        justify-content: center;
-        flex-wrap: wrap;
+
+    p {
+        font-size: 14px !important;
     }
 
-    .value-box {
-        background: white;
-        color: #ff5733;
-        padding: 15px 20px;
-        border-radius: 5px;
-        font-weight: bold;
-        min-width: 150px;
+    .story_image {
+        position: relative;
+        overflow: hidden;
+        height: 320px;
+        /* Slightly shorter than the text height */
     }
 
-    /* Facilities */
-    .facilities {
-        padding: 50px 0;
-        text-align: center;
-        background: #f0f0f0;
-    }
-
-    .facility-list {
-        display: flex;
-        gap: 20px;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-    .facility {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        font-size: 18px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .facility i {
-        color: #ff5733;
+    h4 {
         font-size: 24px;
+        font-weight: 700;
     }
 
-    .btn-custom {
-        background-color: #ff5733;
-        color: white;
-        /* padding: 10px 20px; */
-        border-radius: 5px;
-        text-transform: uppercase;
-        font-weight: bold;
-        transition: background-color 0.3s ease;
+    .info {
+        margin-top: 4rem;
+        min-height: 320px;
+        text-align: start;
+        /* Match the image height */
     }
 
-
-    .team-facilities {
-        background: #f8f9fa;
-        padding: 60px 0;
-        text-align: center;
+    .row.g-5 {
+        display: flex;
+        align-items: flex-start;
+        /* Align top for consistency */
     }
 
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 10px;
-        text-align: center;
+    .col-md-6 {
+        display: flex;
+        flex-direction: column;
     }
 
-    .details {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    .col-md-6 .info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
-    .details img {
-        max-width: 80px;
-        margin-bottom: 10px;
-        display: none;
-    }
-
-    .details h3 {
-        font-size: 17px;
-        margin-bottom: 10px;
-        color: #333;
+    .team p {
+        color: #3b7d59;
         font-weight: 600;
     }
 
-    .details p {
-        font-size: 14px;
-        color: #555;
+    .team h6 {
+        margin-top: .5rem;
+        font-size: 1.25rem;
+        line-height: 1rem;
     }
 
-    .details:hover {
-        transform: translateY(-5px);
+    .team .team-info {
+        color: #808080;
+        font-size: 1.2rem;
+        font-weight: 200;
+    }
+
+    .team-img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .values {
+        background-color: rgb(6 95 70 / var(--tw-bg-opacity, 1));
+        color: white;
     }
 
 
+    .feature-box {
+        background-color: rgb(4 120 87 / var(--tw-bg-opacity, 1));
+        border-radius: 6px;
+        padding: 20px;
+        height: 100%;
+        color: white;
+        text-align: left;
+    }
+
+    .feature-box h3 {
+        font-size: 18px;
+        /* Adjust h3 size */
+        font-weight: bold;
+    }
+
+    .feature-box p {
+        font-size: 13px;
+        /* Adjust paragraph size */
+    }
+
+    .row {
+        --bs-gutter-x: 1.5rem !important;
+        --bs-gutter-y: 1.5rem !important;
+    }
+
+    .ready_to_trek {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 50px 0;
+        background-color: lightgrey;
+
+    }
+
+    /* Add hover effect for buttons */
+    .btn-hover-green {
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .btn-hover-green:hover {
+        background-color: #3b7d59;
+        /* Green color on hover */
+        border-color: #3b7d59;
+        /* Border color on hover */
+    }
+
+    .ps-3 {
+        /*padding-left: 22rem !important;*/
+        text-align: justify !important;
+        line-height: 2rem !important;
+    }
+
+    .slogan {
+        background-color: #198754;
+        padding: 50px 0;
+        margin-top: 20px;
+        font-style: italic;
+        color: whitesmoke;
+    }
+    
+    
+    .blockquote p {
+        font-size: 18px !important;
+        color: #198754;
+        font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+        .story_image {
+            height: 200px;
+            /* Adjust height for smaller screens */
+        }
+
+        .info {
+            min-height: 200px;
+            text-align: justify;
+        }
+
+        .ps-3 {
+            padding-left: 0 !important;
+            text-align: start !important;
+            line-height: 1.5rem !important;
+        }
+
+        .team .team-info {
+            color: #808080;
+            font-size: 1.2rem;
+            font-weight: 10;
+        }
+
+        .team h6 {
+            margin-top: .5rem;
+            font-size: 1.25rem;
+            line-height: 1rem;
+        }
+
+    }
 </style>
-
 @endsection
 
 @section('content')
-<!-- <section class="about-section"> -->
-<div class="hero-section">
-    <div class="container">
-        <h1>Welcome to Ekodus Trails</h1>
-        <p>Your gateway to breathtaking trekking adventures!</p>
-    </div>
-</div>
-<!-- About Us Section -->
-<div class="container about">
-    <div class="row align-items-center">
-        <section class="about ">
-            <div class="container">
-                <div class="row align-items-center">
-                    <!-- Image Grid -->
-                    <div class="col-md-6">
-                        <div class="image-grid">
-                            <div class="image-box">
-                                <img src="images/banner3.png" alt="Trekking Adventure" class="img-fluid rounded shadow">
-                            </div>
-                            <div class="image-box">
-                                <img src="images/banner2.webp" alt="Mountain View" class="img-fluid rounded shadow">
-                            </div>
-                            <div class="image-box">
-                                <img src="images/banner1.jpg" alt="Hiking Trail" class="img-fluid rounded shadow">
-                            </div>
-                            <div class="image-box">
-                                <img src="images/banner1.jpg" alt="Hiking Trail" class="img-fluid rounded shadow">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- About Content -->
-                    <div class="col-md-6">
-                        <h2 class="fade-in">About <span class="highlight">Ekodus Trails</span></h2>
-                        <p class="fade-in delay-1">
-                            Welcome to <strong>Ekodus Trails</strong>, where we create <strong>extraordinary trekking experiences</strong> through some of the world's most breathtaking landscapes. Whether you're a beginner or an experienced trekker, we ensure a safe, thrilling, and unforgettable adventure.
-                        </p>
-                        <!-- <ul class="about-list fade-in delay-2">
-                            <li><i class="fa-solid fa-hiking"></i> Guided treks for all skill levels</li>
-                            <li><i class="fa-solid fa-mountain"></i> Hidden trails & majestic peaks</li>
-                            <li><i class="fa-solid fa-user-shield"></i> Expert guides ensuring safety</li>
-                            <li><i class="fa-solid fa-leaf"></i> Sustainable eco-friendly adventures</li>
-                        </ul>
-                        <a href="#our-journey" class="btn btn-custom btn-sm fade-in delay-3">Discover More</a> -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- How It Started -->
-        <section class="journey-section">
-            <div class="container">
-                <h2 class="section-title">Our Journey</h2>
-                <p class="journey-text">
-                    What started as a deep passion for the mountains has transformed into a mission to share the magic of trekking.
-                    Founded by experienced trekkers, <strong>Ekodus Trails</strong> is dedicated to crafting memorable and safe adventures for every explorer.
-                </p>
-                <p class="journey-text">
-                    With years of expertise and an unwavering love for nature, we design journeys that go beyond just trekking—offering a profound connection to the wilderness.
-                </p>
-            </div>
-        </section>
-
-
-
-        <!-- Why Choose Us -->
-        <section class="why-us">
-            <div class="container">
-                <h2 class="section-title">Why Choose Us?</h2>
-                <div class="why-us-grid">
-                    <div class="why-us-item">
-                        <i class="fa-solid fa-shield-heart"></i>
-                        <h3>100% Safety Guaranteed</h3>
-                        <p>We prioritize your safety with expert guides and top-tier equipment.</p>
-                    </div>
-                    <div class="why-us-item">
-                        <i class="fa-solid fa-user-tie"></i>
-                        <h3>Certified Guides & Experts</h3>
-                        <p>Our team consists of highly trained professionals with years of experience.</p>
-                    </div>
-                    <div class="why-us-item">
-                        <i class="fa-solid fa-leaf"></i>
-                        <h3>Eco-Friendly Trekking</h3>
-                        <p>We follow sustainable practices to preserve nature's beauty.</p>
-                    </div>
-                    <div class="why-us-item">
-                        <i class="fa-solid fa-hiking"></i>
-                        <h3>High-Quality Equipment</h3>
-                        <p>Only the best gear is used to ensure a smooth trekking experience.</p>
-                    </div>
-                    <div class="why-us-item">
-                        <i class="fa-solid fa-mountain-sun"></i>
-                        <h3>Unforgettable Experiences</h3>
-                        <p>Explore breathtaking landscapes with expert-led adventures.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Meet Our Founders -->
-        <!-- <section class="founders">
-                <div class="container">
-                    <h2>Meet Our Founders</h2>
-                    <div class="founder-cards">
-                        <div class="founder">
-                            <img src="images/founder1.jpg" alt="Founder 1">
-                            <h3>Rakesh Pant</h3>
-                            <p>Founder & CEO - Passionate Mountaineer & Trek Leader</p>
-                        </div>
-                        <div class="founder">
-                            <img src="images/founder2.jpg" alt="Founder 2">
-                            <h3>Sandeep Rawat</h3>
-                            <p>Founder & CEO - Expert in Trekking & Expeditions</p>
-                        </div>
-                    </div>
-                </div>
-            </section> -->
-
-        <!-- Facilities -->
-        <!-- <section class="team-facilities">
-            <div class="container">
-                <h2>Team and Facilities</h2>
-                <div class="grid">
-                    <div class="details">
-                        <img src="icons/trek-leader.png" alt="Trek Leaders">
-                        <h3>Trek Leaders</h3>
-                        <p>Qualified with Basic & Advanced Mountaineering Courses. Certified in Wilderness First Aid.</p>
-                    </div>
-                    <div class="details">
-                        <img src="icons/team.png" alt="Team">
-                        <h3>Team</h3>
-                        <p>Every trek has support staff including guides, cooks, and helpers for a smooth journey.</p>
-                    </div>
-                    <div class="details">
-                        <img src="icons/food.png" alt="Food">
-                        <h3>Food</h3>
-                        <p>Hygienic, energizing meals, mainly vegetarian with occasional egg-based dishes.</p>
-                    </div>
-                    <div class="details">
-                        <img src="icons/equipment.png" alt="Equipment">
-                        <h3>Equipment</h3>
-                        <p>High-quality tents, ropes, and climbing gear, maintained for safety and comfort.</p>
-                    </div>
-                    <div class="details">
-                        <img src="icons/emergency.png" alt="Emergency Equipment">
-                        <h3>Emergency Equipment</h3>
-                        <p>Stretchers, oxygen cylinders, and fully stocked first-aid kits available for safety.</p>
-                    </div>
-                    <div class="details">
-                        <img src="icons/high-altitude.png" alt="High Altitude Chambers">
-                        <h3>High Altitude Chambers</h3>
-                        <p>GEMO Bags available for high-altitude treks like Roopkund and Stok Kangri.</p>
-                    </div>
-                    <div class="details">
-                        <img src="icons/accommodation.png" alt="Accommodation">
-                        <h3>Accommodation</h3>
-                        <p>Comfortable and eco-friendly lodging with beautiful mountain views.</p>
-                    </div>
-                    <div class="details">
-                        <img src="icons/transport.png" alt="Transport">
-                        <h3>Transport</h3>
-                        <p>Safe and comfortable rides from pick-up points to the base camp in MUVs.</p>
-                    </div>
-                </div>
-            </div>
-        </section> -->
-
-
-    </div>
-</div>
+<section class="subpage-hero" style="background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ asset('images/bg.jpg') }}'); background-size: cover; background-position: center; color: white; text-align: center; padding: 100px 20px;">
+    <h2 class="">About Exodus Trails</h2>
+    <p class="lead">Authentic Himalayan adventures led by passion, purpose, and experience</p>
 </section>
+
+<!-- Our Story & Mission -->
+<div class="container py-5">
+    <div class="row g-5">
+        <div class="col-md-6 info">
+            <h4 class="">Our Story</h4>
+            <!-- <p>Exodus Trails was born from a simple passion: the love of exploring the Himalayas on foot. Founded in 2010 by a group of avid trekkers and outdoor enthusiasts from Uttarakhand, we set out to create trekking experiences that go beyond the ordinary tourist trail.</p> -->
+            <p>Exodus Trails was born from Ram’s deep connection to the Himalayas – a place he proudly calls home. With thousands of miles trekked and countless memories made, Ram brings his love for nature, adventure, and local culture into every trail we walk together. For us, trekking isn’t just a journey – it’s a shared experience that connects people to nature and to each other.</p>
+            <p>What started as a small operation with just three guides and a handful of treks in Uttarakhand has grown into a trusted adventure company offering carefully crafted hiking experiences across the Indian Himalayas. Despite our growth, we've remained true to our core values: authentic experiences, sustainable practices, and a deep respect for the natural world and local communities.</p>
+
+
+        </div>
+        <div class="col-md-6 story_image">
+            <div class="bg-light rounded overflow-hidden">
+                <img src="{{ asset('images/bg4.jpg') }}" alt="About Image" class="img-fluid w-100 h-100 object-fit-cover">
+            </div>
+        </div>
+        <div class="col-md-6 order-md-2 info">
+            <h4 class="">Our Mission</h4>
+            <p> At Exodus Trails, our mission is to connect people with the natural world through transformative trekking experiences while preserving the environments and cultures we explore.
+            <p>We believe that responsible trekking can be a force for good, creating sustainable livelihoods for local communities while fostering a deeper appreciation for the fragile mountain ecosystems.</p>
+            <p>Our treks are designed to minimize environmental impact while maximizing authentic cultural exchanges and personal growth. Through our work, we aim to inspire a new generation of responsible travelers who understand the importance of treading lightly on the earth and supporting the communities that call these magnificent mountains home.
+            </p>
+        </div>
+        <div class="col-md-6 order-md-1 story_image">
+            <div class="bg-light rounded overflow-hidden">
+                <img src="{{ asset('images/bg.jpg') }}" alt="About Image" class="img-fluid w-100 h-100 object-fit-cover">
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--<section class="slogan py-5 text-center">-->
+<!--    <div class="container">-->
+        <!--<h3 class="fw-bold">Exodus Trails: Step Into the Heart of the Himalayas.</h3>-->
+        
+<!--        <div class="col-md-12">-->
+            <!--<div class="card shadow-lg">-->
+            <!--    <div class="card-body py-4">-->
+<!--                    <h4 class="text-start">Why Trek with Us?</h4>-->
+<!--                    <p class="text-start">Our treks are carefully crafted to fill each moment with wonder and discovery:</p>-->
+<!--                    <ul class="list-unstyled ps-3">-->
+<!--                        <li>🌄 <strong>Himalayan Sunrises & Sunsets:</strong> Watch the golden glow kiss snow-covered peaks from stunning vantage points.</li>-->
+<!--                        <li>🏔 <strong>Summit Expeditions:</strong> For seasoned adventurers, we guide challenging climbs to iconic Himalayan peaks.</li>-->
+<!--                        <li>❄️ <strong>Glacier Treks:</strong> Explore ancient glaciers and marvel at their raw, icy beauty.</li>-->
+<!--                        <li>🏞 <strong>High-Altitude Lakes:</strong> Discover tranquil, hidden lakes reflecting the majesty of surrounding peaks.</li>-->
+<!--                    </ul>-->
+            <!--    </div>-->
+            <!--</div>-->
+<!--        </div>-->
+        
+<!--    </div>-->
+<!--</section>-->
+<!--<div class="container">-->
+<!--    <div class="row justify-content-center mt-4">-->
+        
+<!--    </div>-->
+
+<!--</div>-->
+
+<section class="slogan py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Left Column: Text Content -->
+            <div class="col-md-6">
+                <h4 class="text-start">Why Trek with Us?</h4>
+                <p class="text-start">Our treks are carefully crafted to fill each moment with wonder and discovery:</p>
+                <ul class="list-unstyled ps-3">
+                    <li><strong>Himalayan Sunrises & Sunsets:</strong> Watch the golden glow kiss snow-covered peaks from vantage points.</li>
+                    <li><strong>Summit Expeditions:</strong> For seasoned adventurers, we guide challenging climbs to iconic Himalayan peaks.</li>
+                    <li><strong>Glacier Treks:</strong> Explore ancient glaciers and marvel at their raw, icy beauty.</li>
+                    <li><strong>High-Altitude Lakes:</strong> Discover tranquil, hidden lakes reflecting the majesty of surrounding peaks.</li>
+                </ul>
+            </div>
+
+            <!-- Right Column: Testimonial Card -->
+            <div class="col-md-6 mt-4 mt-md-0">
+                <div class="card bg-light p-4 rounded shadow-sm h-100 d-flex justify-content-center align-content-center">
+                    <blockquote class="blockquote mb-0">
+                        <p class="mb-3">"Exodus Trails gave me more than a trek — it gave me clarity, friends, and unforgettable views!"</p>
+                        <footer class="blockquote-footer">Aarti M., <cite title="Location">Trekker from Delhi</cite></footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- Meet Our Team -->
+<section class="team bg-white py-5 text-center">
+    <div class="container">
+        <h4 class="fw-bold mb-4">Meet Our Team</h4>
+        <div class="d-flex justify-content-center mb-4">
+
+            <p class="team-info">Our experienced guides and support staff are the heart of Exodus Trails.</br> With deep local knowledge and a passion for the mountains, they ensure your journey is safe, educational, and unforgettable.</p>
+
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-3">
+                <div class="text-center">
+                    <img src="{{ asset('images/team/vipin-founder.jpg') }}"
+                        class="rounded-circle mb-2 team-img"
+                        alt="Team" />
+                </div>
+                <h6 class="fw-bold">Vipin Panwar</h6>
+                <p class="small">Founder</p>
+            </div>
+            <div class="col-md-3">
+                <div class="text-center">
+                    <img src="{{asset('images/team/co-founder.jpg')}}" class="rounded-circle mb-2 team-img" alt="Team" />
+                </div>
+                <h6 class="fw-bold">Pramod Panwar</h6>
+                <p class="small ">Co Founder</p>
+            </div>
+            <div class="col-md-3">
+                <div class="text-center">
+                    <img src="{{asset('images/team/team3.jpg')}}" class="rounded-circle mb-2 team-img" alt="Team" />
+                </div>
+                <h6 class="fw-bold">Vikram Singh</h6>
+                <p class="small">Senior Trek Guide</p>
+            </div>
+            <div class="col-md-3">
+                <div class="text-center">
+                    <img src="{{asset('images/team/team5.jpg')}}" class="rounded-circle mb-2 team-img" alt="Team" />
+                </div>
+                <h6 class="fw-bold">Meera Rawat</h6>
+                <p class="small ">Marketing Manager</p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-3 mt-5">
+                <div class="text-center">
+                    <a href="{{route('team-members')}}" class="btn btn-outline-success btn-hover-green">View All</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<!-- Features -->
+<section class="values py-5">
+    <div class="container">
+        <h4 class="fw-bold mb-4  text-center">Our Values</h4>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <h3 class="h4">Respect for Nature</h3>
+                    <p>We practice and promote sustainable trekking, minimizing our environmental footprint and preserving the natural beauty of the Himalayas for future generations.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <h3 class="h4">Community Support</h3>
+                    <p>We employ local guides and staff, use locally-owned accommodations, and contribute to community development projects in the regions we trek.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <h3 class="h4">Safety First</h3>
+                    <p>The safety of our trekkers is our highest priority. Our guides are trained in wilderness first aid and carry comprehensive medical kits on all treks.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <h3 class="h4">Educational Experience</h3>
+                    <p>We believe in sharing knowledge about local culture, history, and ecology, creating a deeper connection between our trekkers and the places they visit.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <h3 class="h4">Authentic Connections</h3>
+                    <p>We foster genuine interactions between trekkers and local communities, promoting cultural exchange and mutual respect.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <h3 class="h4">Continuous Improvement</h3>
+                    <p>We constantly seek feedback and innovate our practices to better serve our trekkers, communities, and the environment.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ready_to_trek">
+    <div class="container text-center"> <!-- Added text-center to center the content -->
+        <div class="col-md-12">
+            <h3 style="color:black;">Ready to Trek with Us?</h3>
+            <p>Join us for an unforgettable Himalayan adventure. Whether you're a beginner or an <br>experienced trekker, we have the perfect journey waiting for you.</p>
+
+            <!-- Buttons -->
+            <a href="#" class="btn btn-outline-success btn-hover-green">Contact Us</a>
+            <a href="#" class="btn  btn-outline-success btn-hover-green">Explore Treks</a>
+        </div>
+    </div>
+</section>
+
+
+
 @endsection
 @section('scripts')
 <script>

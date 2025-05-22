@@ -1,703 +1,328 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('styles')
-<style>
-    .col-md-2 {
-        flex: 0 0 auto;
-        width: 19.666667%;
-    }
-
-    .info-section {
-        /* background: linear-gradient(to right, #ff6a00, #ffbb00); */
-        color: #0d3c22;
-        border-radius: 10px;
-        box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.2);
-    }
-
-    .info-box {
-        background: rgba(255, 255, 255, 0.15);
-        padding: 10px;
-        border-radius: 15px;
-        margin: 5px;
-        box-shadow: 0 2px 5px 5px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease-in-out;
-    }
-
-    .info-section svg {
-        font-size: 27px !important;
-        color: #ff6a00;
-    }
-
-    .info-box:hover {
-        transform: scale(1.15);
-    }
-
-    .info-box i {
-        margin-bottom: 8px;
-    }
-
-    .info-title {
-        font-size: 1.2rem;
-        font-weight: bold;
-        margin-bottom: .3rem;
-    }
-
-    .info-detail {
-        font-size: 1rem;
-        margin-bottom: .3rem;
-    }
-
-
-    .amount-section {
-        position: relative;
-        /* Needed for absolute positioning of overlay */
-        background-image: url('images/bg6.jpg');
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        /* Enables parallax effect */
-        color: white;
-        padding: 40px 0;
-        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .amount-section::before {
-        content: "";
-        /* Necessary for the pseudo-element */
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.13);
-        /* Semi-transparent black overlay */
-        z-index: 1;
-        /* Ensures overlay is above the background */
-        pointer-events: none;
-        /* Allows interactions to pass through */
-    }
-
-
-
-    .amount-box {
-        background: white;
-        padding: 25px;
-        border-radius: 12px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease-in-out;
-        color: black;
-    }
-
-    .amount-box:hover,
-    .date-box:hover {
-        transform: scale(1.05);
-    }
-
-    .amount-title,
-    .date-title {
-        font-size: 1.5rem;
-        font-weight: bold;
-        margin-bottom: 10px;
-        color: #e65c00;
-        text-align: left;
-    }
-
-
-    /* Container Styling */
-    .date-box {
-        background: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    select.form-control:not([size]):not([multiple]) {
-        height: calc(2.25rem + 8px) !important;
-    }
-
-
-    /* Select Box Styling */
-    select.form-control {
-        width: 100%;
-        padding: 10px;
-        font-size: 1rem;
-        border: 2px solid #ff6a00;
-        border-radius: 8px;
-        background: #fff;
-        color: #333;
-        cursor: pointer;
-        transition: all 0.3s ease-in-out;
-    }
-
-    /* Hover & Focus Effects */
-    select.form-control:hover,
-    select.form-control:focus {
-        border-color: rgb(87, 63, 47);
-        box-shadow: 0 0 8px rgba(255, 106, 0, 0.3);
-        outline: none;
-    }
-
-    /* Adjust Margin for Consistency */
-    .trek-dates {
-        margin-top: 10px;
-    }
-
-    /* Button Styling */
-    .btn-primary {
-        background: #ff6a00;
-        border: none;
-        padding: 8px 16px;
-        font-size: 1rem;
-        border-radius: 8px;
-        transition: all 0.3s ease-in-out;
-    }
-
-    .btn-primary:hover {
-        background: #e65c00;
-        transform: scale(1.05);
-    }
-
-    .amount-price {
-        font-size: 2rem;
-        font-weight: bold;
-        color: #ff6a00;
-    }
-
-    .amount-note {
-        font-size: 13px;
-        opacity: 0.8;
-    }
-
-    .btn-primary {
-        background: #ff6a00;
-        color: #f8f9fa;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 25px;
-        font-weight: bold;
-        transition: background 0.3s ease-in-out;
-    }
-
-    .btn-primary:hover {
-        background: #ff6a00;
-    }
-
-    .itinerary-section h2,
-    .inclusions-section h2,
-    .faq-section h2,
-    .gallery-section h2 .amount-section h2 {
-        margin-bottom: 15px;
-        color: #ff6a00;
-        font-weight: bold;
-    }
-
-    /* .itinerary-day {
-        margin-bottom: 20px;
-        padding: 15px;
-        border-left: 5px solid #ff6a00;
-        background: white;
-        border-radius: 5px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    } */
-
-    /* Timeline Layout */
-    .timeline {
-        position: relative;
-        /* max-width: 800px; */
-        margin: 0 auto;
-        padding: 20px 0;
-    }
-
-    /* Timeline Item */
-    .timeline-item {
-        position: relative;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-    }
-
-    /* Timeline Icon */
-    .timeline-icon {
-        width: 50px;
-        height: 50px;
-        background: #ff6a00;
-        color: #fff;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 1.2rem;
-        margin-right: 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Timeline Content */
-    .timeline-content {
-        background: white;
-        padding: 15px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        flex: 1;
-        transition: transform 0.3s ease-in-out;
-    }
-
-    .timeline-content:hover {
-        transform: translateY(-5px);
-    }
-
-    .timeline-title {
-        font-size: 18px !important;
-        color: #ff6a00;
-        margin-bottom: 5px;
-    }
-
-    /* Initially Hidden Full Description */
-    .full-description {
-        display: none;
-        margin-top: 10px;
-        font-size: 13px !important;
-        color: #333;
-    }
-
-    .short-description {
-        font-size: 14px;
-        color: #333;
-    }
-
-    /* Show full description when active */
-    .timeline-item.active .full-description {
-        display: block;
-    }
-
-
-
-
-    .accordion-button {
-        font-weight: bold;
-        color: #ff6a00;
-    }
-
-    .gallery img {
-        width: 100%;
-        height: auto;
-        border-radius: 5px;
-    }
-
-    .overview-section {
-        background: #f8f9fa;
-        padding: 20px;
-        border-radius: 10px;
-    }
-
-    .overview-title {
-        font-size: 1.8rem;
-        font-weight: bold;
-        color: #ff6a00;
-        margin-bottom: 20px;
-    }
-
-    /* Fix image dimensions and smooth scaling */
-    #trekCarousel img {
-        border-radius: 10px;
-        width: 100%;
-        /* Ensures the image covers the entire carousel container */
-        height: 350px;
-        /* Fixed height for consistency */
-        object-fit: cover;
-        /* Prevents image distortion */
-    }
-
-    /* Smooth transition effect */
-    .carousel-item {
-        will-change: transform;
-        transition: transform 0.5s ease-out;
-    }
-
-
-    .italic {
-        font-style: italic;
-    }
-
-    .key-points-section {
-        /* background: #f8f9fa; */
-        /* padding: 20px; */
-        border-radius: 10px;
-        /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
-    }
-
-    .key-points-box,
-    .highlights-box {
-        background: white;
-        border-radius: 8px;
-        padding: 20px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .key-points-box h4,
-    .highlights-box h4 {
-        color: #ff6a00;
-        font-weight: bold;
-        margin-bottom: 15px;
-    }
-
-    .key-points-box ul,
-    .highlights-box ul {
-        list-style-type: none;
-        padding-left: 0;
-    }
-
-    .key-points-box ul li,
-    .highlights-box ul li {
-        font-size: 1rem;
-        margin-bottom: 8px;
-        padding-left: 20px;
-        position: relative;
-    }
-
-    .key-points-box ul li::before,
-    .highlights-box ul li::before {
-        content: "✔";
-        position: absolute;
-        left: 0;
-        color: #ff6a00;
-        font-weight: bold;
-    }
-</style>
-
-
-
+<link rel="stylesheet" href="{{asset('css/trek-details.css')}}">
 @endsection
 
 @section('content')
-<!-- Hero Section -->
-<div class="hero-section">
-    <h1> Trek Name</h1>
-</div>
+<section class="hero">
+    <div class="hero-overlay"></div>
 
+    <div class="tour-card">
+        <div class="tour-header">
+            <div class="tour-location">
+                <i class="fas fa-map-marker-alt"></i> {{$trekdetails->locations->name}}
+            </div>
+            <div class="tour-rating">
+                <div class="stars">
+                    @php
+                    $fullStars = floor($trekdetails->rating);
+                    $halfStar = ($trekdetails->rating - $fullStars) >= 0.5;
+                    $emptyStars = 5 - $fullStars - ($halfStar ? 1 : 0);
+                    @endphp
 
-<div class="info-section py-4">
+                    @for ($i = 0; $i < $fullStars; $i++)
+                        <i class="fas fa-star"></i>
+                        @endfor
+
+                        @if ($halfStar)
+                        <i class="fas fa-star-half-alt"></i>
+                        @endif
+
+                        @for ($i = 0; $i < $emptyStars; $i++)
+                            <i class="far fa-star"></i>
+                            @endfor
+                </div>
+                <span style="color:black;">
+                    {{ number_format($trekdetails->rating, 1) }} ({{ $trekdetails->review_count }} reviews)
+                </span>
+            </div>
+        </div>
+        <div class="tour-heading">
+            <h1 class="tour-title">{{$trekdetails->name}}</h1>
+            <div class="tour-price">
+                <div class="price">₹ {{$trekdetails->price}}</div>
+                <div class="per-person">per person</div>
+            </div>
+        </div>
+        <div class="tour-details">
+
+            <div class="tour-info">
+                <div class="info-item">
+                    <span class="badge bg-success"><i class="far fa-calendar"></i>&nbsp;&nbsp;{{$trekdetails->duration}}</span>
+                </div>
+                <div class="info-item">
+                    <span class="badge bg-success"><i class="fas fa-users"></i>&nbsp;&nbsp;Max {{$trekdetails->max_group_size}}</span>
+                </div>
+                <div class="info-item">
+                    <span class="badge bg-success"><i class="fas fa-mountain"></i>&nbsp;&nbsp;{{$trekdetails->difficulty}}</span>
+                </div>
+            </div>
+            <a href="{{route('booking')}}" class="btn btn-primary btn-sm book-trip">Book This Trip</a>
+        </div>
+    </div>
+
+</section>
+
+<section class="content">
     <div class="container">
-        <div class="row text-center">
-            <div class="col-md-2">
-                <div class="info-box">
-                    <i class="fas fa-clock"></i>
-                    <p class="info-title">Duration</p>
-                    <p class="info-detail">6 Days / 5 Nights</p>
+        <div class="content-wrapper">
+            <div class="main-content">
+                <!-- Tabs -->
+                <div class="tabs grid grid-cols-4 gap-2 mb-6">
+                    <button class="tab-button active" data-tab="overview">Overview</button>
+                    <button class="tab-button" data-tab="itinerary">Itinerary</button>
+                    <button class="tab-button" data-tab="includes">Includes</button>
+                    <button class="tab-button" data-tab="reviews">Reviews</button>
                 </div>
-            </div>
-            <div class="col-md-2">
-                <div class="info-box">
-                    <i class="fas fa-mountain "></i>
-                    <p class="info-title">Altitude</p>
-                    <p class="info-detail">6,638m</p>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="info-box">
-                    <i class="fas fa-chart-line"></i>
-                    <p class="info-title">Difficulty</p>
-                    <p class="info-detail">Moderate</p>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="info-box">
-                    <i class="fas fa-cloud-sun "></i>
-                    <p class="info-title">Best Season</p>
-                    <p class="info-detail">May - September</p>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="info-box">
-                    <i class="fas fa-map-marker-alt "></i>
-                    <p class="info-title">Region</p>
-                    <p class="info-detail">Nepal-Tibet</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="amount-section py-5">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-4">
-                <div class="amount-box text-center">
-                    <h3 class="amount-title italic">Trek Cost</h3>
-                    <p class="amount-price" id="amount-price">₹275,000</p>
-                    <p class="amount-note">Per Person | Includes Permits & Meals</p>
-                    <button class="btn btn-primary btn-sm" id="convert-button" onclick="convertCurrency()">Convert to USD</button>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="date-box text-center">
-                    <h3 class="date-title italic">Batches</h3>
-                    <select name="" id="" class="form-control ">
-                        <option value="">Select Month</option>
-                        <option>April</option>
-                        <option>May</option>
-                        <option>June</option>
-                    </select>
-                    <select class="form-control trek-dates mt-2">
-                        <option value="">Upcoming Batches</option>
-                        <option>April 10 - April 24 </option>
-                        <option>May 5 - May 19</option>
-                        <option>June 15 - June 29</option>
-                        <option>July 20 - Aug 3</option>
-                    </select>
-                    <button class="btn btn-primary btn-sm mt-3">Book Now</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                <!-- Tab Content -->
+                <div class="tab-content text-muted" id="overview">
+                    <div class="space-y-6">
+                        {!!$trekdetails->trekDetails->overview!!}
+                        <div>
+                            {!!$trekdetails->trekDetails->highlights!!}
 
-<div class="container overview-section my-5">
-    <h2 class="overview-title"> Overview - Trek Name</h2>
-    <div class="row mb-0">
-        <div class="col-md-6">
-            <p class="text-left">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vel tempus urna, vitae tempus ligula. Donec luctus mattis congue. Ut non mauris tincidunt, aliquam odio ut, convallis erat. Integer bibendum blandit elit varius congue. Curabitur erat sapien, mattis nec volutpat id, convallis eget dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas vel nibh sit amet dui dignissim hendrerit. Aenean urna enim, iaculis tempor sagittis a, feugiat convallis neque. Nulla facilisi. Phasellus volutpat faucibus lectus a iaculis.
-
-                Nullam volutpat nisl vitae aliquet efficitur. Nunc eu ultrices libero. Nam non rhoncus ex. In aliquet elit non diam viverra ultrices. Morbi velit ipsum, laoreet ac turpis id, porta sagittis est. Morbi efficitur, dolor vel posuere malesuada, erat mauris rutrum lacus, vel ullamcorper nisi ex vel nisi. Donec fringilla quam dolor, vitae sagittis magna efficitur et. Nulla vitae vulputate nulla. Proin at nulla egestas, finibus ante quis, aliquet ligula. Nunc dictum, nisl sit amet viverra ornare, mi velit vehicula est, ac efficitur nibh massa vel magna. Integer ut efficitur tortor. Vestibulum euismod convallis feugiat.
-            </p>
-        </div>
-        <div class="col-md-6">
-            <!-- Bootstrap Carousel -->
-            <div id="trekCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="{{ asset('images/bg.jpg') }}" class="d-block w-100" alt="Trek Image 1">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="{{ asset('images/bg2.jpg') }}" class="d-block w-100" alt="Trek Image 2">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="{{ asset('images/bg3.jpg') }}" class="d-block w-100" alt="Trek Image 3">
+                        </div>
+                        <!-- <div class="rounded-img-container">
+                            <img src="{{ asset('images/kedarkanthabanner.webp') }}" alt="Kedarkantha Banner">
+                        </div> -->
                     </div>
                 </div>
-                <!-- Carousel Controls -->
-                <button class="carousel-control-prev" type="button" data-bs-target="#trekCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#trekCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
+
+                <div class="tab-content hidden" id="itinerary">
+                    <div class="accordion">
+                        <!-- <details>
+                            <summary>
+                                <div><span class="day-tag">Day 1</span> Arrival in Zurich</div>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </summary>
+                            <div class="accordion-content">
+                                Explore Zurich’s old town and enjoy a welcome dinner.
+                            </div>
+                        </details>
+
+                        <details>
+                            <summary>
+                                <div><span class="day-tag">Day 2</span> Lauterbrunnen Valley</div>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </summary>
+                            <div class="accordion-content">
+                                Hike past waterfalls and alpine scenery in Lauterbrunnen.
+                            </div>
+                        </details>
+
+                        <details>
+                            <summary>
+                                <div><span class="day-tag">Day 3</span> Eiger Trail</div>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </summary>
+                            <div class="accordion-content">
+                                Trek along the famous Eiger Trail with breathtaking views.
+                            </div>
+                        </details> -->
+
+                        {!!$trekdetails->trekDetails->itinerary!!}
+                    </div>
+                </div>
+
+                <div class="tab-content hidden" id="includes">
+                    <div class="space-y-6">
+                        <div>
+                            <h5 class="">What's Included</h5>
+                            {!!$trekdetails->trekDetails->includes!!}
+                        </div>
+
+                        <div>
+                            <h5 class="">What's Not Included</h5>
+                            {!!$trekdetails->trekDetails->excludes!!}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content hidden" id="reviews">
+                    <h5 class="">Customer Reviews</h5>
+
+                    {!!$trekdetails->trekDetails->reviews!!}
+
+                    <!-- <div class="review">
+                        <div class="review-header">
+                            <div class="reviewer">Sarah Johnson</div>
+                            <div class="review-date">May 15, 2023</div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="review-text">
+                            The Swiss Alps tour exceeded all my expectations. Our guide was knowledgeable and passionate, and the scenery was absolutely breathtaking. I'll definitely be booking another trip with this company!
+                        </div>
+                    </div>
+
+                    <div class="review">
+                        <div class="review-header">
+                            <div class="reviewer">Michael Brown</div>
+                            <div class="review-date">April 22, 2023</div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <div class="review-text">
+                            Great experience overall. The itinerary was well-planned and the accommodations were comfortable. The only reason I'm not giving 5 stars is because one of the days felt a bit rushed. Otherwise, highly recommended!
+                        </div>
+                    </div>
+
+                    <div class="review">
+                        <div class="review-header">
+                            <div class="reviewer">Emma Wilson</div>
+                            <div class="review-date">March 10, 2023</div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="review-text">
+                            This was my third trip with Exodus Trails and they never disappoint. The Swiss Alps package was perfectly organized, with a good balance of challenging hikes and relaxation time. Our guide Thomas was exceptional!
+                        </div>
+                    </div> -->
+
+                </div>
+
+
+            </div>
+
+            <div class="sidebar">
+                <div class="booking-widget">
+                    <h5>Book This Trip</h5>
+                    <div class="available-dates">
+                        <h6>Next Available Dates:</h6>
+                        <div class="date-option">
+                            <input type="radio" name="date" id="date1">
+                            <label for="date1">June 15, 2023</label>
+                        </div>
+                        <div class="date-option">
+                            <input type="radio" name="date" id="date2">
+                            <label for="date2">July 8, 2023</label>
+                        </div>
+                        <div class="date-option">
+                            <input type="radio" name="date" id="date3">
+                            <label for="date3">August 12, 2023</label>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary full-width">Check Availability</button>
+                </div>
+
+                <div class="help-widget">
+                    <h3>Need Help?</h3>
+                    <p>Our travel experts are here to assist you in planning your perfect hiking adventure.</p>
+                    <button class="btn btn-outline full-width">Contact Us</button>
+                </div>
+
+                <!-- <div class="similar-packages">
+                    <h3>Similar Packages</h3>
+                    <div class="package">
+                        <div class="package-image placeholder"></div>
+                        <div class="package-details">
+                            <h4>Inca Trail Adventure</h4>
+                            <div class="package-meta">10 days</div>
+                            <div class="package-price">$899</div>
+                        </div>
+                    </div>
+                    <div class="package">
+                        <div class="package-image placeholder"></div>
+                        <div class="package-details">
+                            <h4>Himalayan Heights</h4>
+                            <div class="package-meta">14 days</div>
+                            <div class="package-price">$1499</div>
+                        </div>
+                    </div>
+                </div> -->
             </div>
         </div>
 
-    </div>
-</div>
 
 
-<!-- Key Points & Highlights Section -->
-<div class="container key-points-section my-5">
-    <div class="row">
-        <!-- Key Points -->
-        <div class="col-md-6">
-            <div class="key-points-box p-4">
-                <h4>Key Points</h4>
-                <ul>
-                    <li><strong>Destination Covered:</strong> Dehradun, Sankri, Juda ka Talab, Kedarkantha Base, Kedarkantha Summit, Hargaon, Sankri, Dehradun</li>
-                    <li><strong>Country:</strong> India</li>
-                    <li><strong>Adventure Type:</strong> Trekking, Adventure</li>
-                    <li><strong>Duration:</strong> 9 Days</li>
-                    <li><strong>Base Camp:</strong> Sankri</li>
-                    <li><strong>Altitude:</strong> Varies</li>
-                    <li><strong>Stay:</strong> Hotels & Guesthouses</li>
-                    <li><strong>Season:</strong> All Year Round</li>
-                    <li><strong>Difficulty Level:</strong> Moderate</li>
-                    <li><strong>Food:</strong> Meals included</li>
-                    <li><strong>Trail Type:</strong> Sacred Temples & Scenic Routes</li>
-                    <li><strong>Rail Head:</strong> Haridwar</li>
-                    <li><strong>Month:</strong> May to November</li>
-                </ul>
-            </div>
-        </div>
+        @php
+        $trekdetails->gallery_images = [
+        'bg.jpg',
+        'bg2.jpg',
+        'bg3.jpg',
+        'bg4.jpg',
+        'bg6.jpg'
+        ];
+        @endphp
 
-        <!-- Highlights -->
-        <div class="col-md-6">
-            <div class="highlights-box p-4">
-                <h4>Highlights</h4>
-                <ul>
-                    <li>Summit climb to the Kedarkantha peak at 12,500 ft with 360-degree views of the Himalayas.</li>
-                    <li>Camping amidst snow-covered landscapes at Juda ka Talab and Kedarkantha Base.</li>
-                    <li>Trekking through dense pine forests, open meadows, and experiencing the beauty of winter in the Himalayas.</li>
-                </ul>
-
-                <h4>Pickup & Drop Details</h4>
-                <ul>
-                    <li><strong>Pickup / Drop Point:</strong> Haridwar</li>
-                    <li><strong>Reporting Time:</strong> Flexible based on arrival</li>
-                    <li><strong>Drop Time:</strong> Flexible based on departure</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<!-- Itinerary Section -->
-<div class="container itinerary-section my-5">
-    <h2 class="text-left mb-4">Trek Itinerary</h2>
-    <div class="timeline">
-        <div class="timeline-item">
-            <div class="timeline-icon"><i class="fas fa-plane-arrival"></i></div>
-            <div class="timeline-content">
-                <h4 class="timeline-title">Day 1: Arrival in Kathmandu</h4>
-                <p class="short-description">Click to see more details...</p>
-                <div class="full-description">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Vivamus laoreet libero vel erat scelerisque. Curabitur nec justo elit.
-                        Suspendisse at libero et lectus sodales pharetra. Duis tristique metus.</p>
+        <section class="gallery-section py-5">
+            <div class="container">
+                <h5 class="mb-4"> Gallery</h5>
+                <div class="gallery-scroll-wrapper">
+                    <div class="gallery-scroll">
+                        @foreach ($trekdetails->gallery_images as $image)
+                        <div class="gallery-item">
+                            <img src="{{ asset('images/' . $image) }}" alt="Gallery Image">
+                        </div>
+                        @endforeach
+                        @foreach ($trekdetails->gallery_images as $image)
+                        <div class="gallery-item">
+                            <img src="{{ asset('images/' . $image) }}" alt="Gallery Image">
+                        </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="timeline-item">
-            <div class="timeline-icon"><i class="fas fa-city"></i></div>
-            <div class="timeline-content">
-                <h4 class="timeline-title">Day 2: Kathmandu Sightseeing</h4>
-                <p class="short-description">Click to see more details...</p>
-                <div class="full-description">
-                    <p>Donec imperdiet, magna ut consectetur egestas, mi libero interdum sapien,
-                        eu tempor dui nisl ut ligula. Curabitur vel purus vitae velit bibendum euismod.</p>
+        <section class="similar-packages py-5">
+            <h5 class="mb-4">Similar Packages</h5>
+            <div class="similar-packages-cards">
+                @foreach ($similarPackages as $package)
+                <div class="package-card">
+                    <div class="package-card-image" style="background-image: url('../images/bg3.jpg');"></div>
+                    <div class="package-card-details">
+                        <h4>{{ $package->name }}</h4>
+                        <div class="package-meta">{{ $package->duration }} days</div>
+                        <!-- <div class="package-price">${{ number_format($package->price, 2) }}</div> -->
+                    </div>
                 </div>
+                @endforeach
             </div>
-        </div>
-
-        <div class="timeline-item">
-            <div class="timeline-icon"><i class="fas fa-bus"></i></div>
-            <div class="timeline-content">
-                <h4 class="timeline-title">Day 3: Drive to Syabrubesi</h4>
-                <p class="short-description">Click to see more details...</p>
-                <div class="full-description">
-                    <p>Integer vel lorem ut metus scelerisque aliquet.
-                        Duis at felis ac felis pellentesque ultrices.
-                        Pellentesque habitant morbi tristique senectus et netus et malesuada.</p>
-                </div>
-            </div>
-        </div>
+        </section>
     </div>
-</div>
 
-
-
-<!-- Inclusions & Exclusions -->
-<div class="container my-5">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="inclusions-section">
-                <h2>What's Included</h2>
-                <ul>
-                    <li>Accommodation in Kathmandu</li>
-                    <li>Transportation from Kathmandu to Syabrubesi</li>
-                    <li>Meals during the trek</li>
-                    <li>Experienced trekking guide</li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="inclusions-section">
-                <h2>What's Not Included</h2>
-                <ul>
-                    <li>International flight tickets</li>
-                    <li>Personal expenses</li>
-                    <li>Travel insurance</li>
-                    <li>Emergency evacuation costs</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- FAQ Section -->
-<!-- <div class="container faq-section my-5">
-    <h2 class="text-center">Frequently Asked Questions</h2>
-    <div class="accordion" id="faqAccordion">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="heading1">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
-                    What is the difficulty level of this trek?
-                </button>
-            </h2>
-            <div id="collapse1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                    The Kailash Mansarovar Yatra is of moderate difficulty and requires physical fitness.
-                </div>
-            </div>
-        </div>
-
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="heading2">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
-                    What is the highest altitude of the trek?
-                </button>
-            </h2>
-            <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                    The highest point of the trek is approximately 6,638m.
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-<!-- Gallery Section -->
-<div class="container gallery-section my-5">
-    <h2 class="text-center">Gallery</h2>
-    <div class="row">
-        <div class="col-md-4 mb-3">
-            <img src="{{ asset('images/trek1.jpg') }}" alt="Trek Image" class="gallery img-fluid">
-        </div>
-        <div class="col-md-4 mb-3">
-            <img src="{{ asset('images/trek2.jpg') }}" alt="Trek Image" class="gallery img-fluid">
-        </div>
-        <div class="col-md-4 mb-3">
-            <img src="{{ asset('images/trek3.jpg') }}" alt="Trek Image" class="gallery img-fluid">
-        </div>
-    </div>
-</div>
-
+</section>
 @endsection
 @section('scripts')
 <script>
-    let conversionRate = 80.5; // 1 USD = 80.5 INR
-    let isInINR = true; // Track current currency state
+    const buttons = document.querySelectorAll('.tab-button');
+    const contents = document.querySelectorAll('.tab-content');
 
-    function convertCurrency() {
-        let amountElement = document.getElementById('amount-price');
-        let buttonElement = document.getElementById('convert-button');
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons
+            buttons.forEach(btn => btn.classList.remove('active'));
+            // Hide all tab contents
+            contents.forEach(content => content.classList.add('hidden'));
 
-        if (isInINR) {
-            // Convert INR to USD
-            let inrAmount = 275000;
-            let usdAmount = (inrAmount / conversionRate).toFixed(2);
-            amountElement.innerText = `$${usdAmount}`;
-            buttonElement.innerText = "Convert to INR";
-        } else {
-            // Convert USD to INR
-            let usdAmount = 275000 / conversionRate;
-            let inrAmount = (usdAmount * conversionRate).toFixed(2); // Ensures round-trip consistency
-            amountElement.innerText = `₹${inrAmount}`;
-            buttonElement.innerText = "Convert to USD";
-        }
-
-        isInINR = !isInINR; // Toggle currency state
-    }
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const timelineItems = document.querySelectorAll(".timeline-item");
-
-    timelineItems.forEach(item => {
-        item.addEventListener("click", function () {
-            this.classList.toggle("active");
+            // Activate current
+            button.classList.add('active');
+            document.getElementById(button.getAttribute('data-tab')).classList.remove('hidden');
         });
     });
-});
 </script>
 @endsection

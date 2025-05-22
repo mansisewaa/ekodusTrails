@@ -1,239 +1,157 @@
-@extends('layouts.app')
-
+@extends('layouts.master')
 @section('styles')
 <style>
-    .search-bar {
-        display: flex;
-        justify-content: flex-end;
-        margin-bottom: 20px;
-    }
-
-    .search-bar input {
-        padding: 8px 15px;
-        border: 1px solid #ccc;
-        border-radius: 20px;
-        outline: none;
-        transition: all 0.3s ease-in-out;
-    }
-
-    .search-bar input:focus {
-        border-color: #ff6a00;
-        box-shadow: 0 0 8px rgba(255, 105, 180, 0.3);
-    }
-
-    .treks-section {
-        padding: 80px 0;
-        text-align: center;
-    }
-
-    .treks-section h2 {
-        font-size: 18px;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 40px;
-    }
-
-    .trek-card {
-        position: relative;
-        background: #fff;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        transition: all 0.3s ease;
-        cursor: pointer;
-        width: 291px;
-        height: 100%;
-    }
-
-    .trek-card:hover {
-        transform: scale(1.05);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
-    }
-
-    .trek-card img {
-        width: 100%;
-        height: 220px;
-        object-fit: cover;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-    }
-
-    .trek-card .card-body {
-        padding: 20px;
-        text-align: center;
-    }
-
-    .trek-card h3 {
-        font-size: 20px;
-        color: #222;
-        font-weight: 700;
-        margin-bottom: 10px;
-    }
-
-    .trek-card p {
-        font-size: 13px;
-        color: #777;
-        margin-bottom: 15px;
-    }
-
-    .trek-card .btn {
-        background: linear-gradient(to right, #ff7e5f, #feb47b);
-        color: #fff;
-        padding: 5px 6px;
-        border-radius: 50px;
-        font-size: 13px;
-        font-weight: bold;
-        transition: 0.3s ease-in-out;
-    }
-
-    .trek-card .btn:hover {
-        /* background: linear-gradient(to right, #feb47b, #ff7e5f); */
-    }
-
-    .pagination {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 20px;
-        width: 100%;
-        max-width: 1200px;
-    }
-
-    .pagination a {
-        padding: 8px 12px;
-        margin: 0 5px;
-        text-decoration: none;
+    .subpage-hero {
+        background-size: cover;
+        background-position: center;
         color: white;
-        background-color: #ff6a00;
-        border-radius: 5px;
+        text-align: center;
+        padding: 100px 20px;
     }
 
-    .pagination .active {
-        background-color: #ee0979;
-        font-weight: bold;
+    p {
+        font-size: 14px !important;
+    }
+
+    .filter-section {
+        text-align: left;
+    }
+
+    .badge {
+    --bs-badge-padding-x: 1.65em !important;
+    --bs-badge-padding-y: 0.70em !important;
+    --bs-badge-font-size: 11px !important;
+    }
+
+    .card img {
+        height: 230px !important;
     }
 </style>
 @endsection
 
 @section('content')
-<div class="hero-section">
-    <div class="container">
-        <h1>Explore Our Treks</h1>
-    </div>
-</div>
 
+<section class="subpage-hero" style="background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ asset('images/bg.jpg') }}'); background-size: cover; background-position: center; color: white; text-align: center; padding: 100px 20px;">
+    <h2 class="">Our Treks</h2>
+    <p class="lead">Choose from our carefully curated selection of hiking adventures for all experience levels.</p>
+</section>
 
-<div class="treks-section">
+<section class="treks-page py-5 bg-light">
     <div class="container">
-        <div class="search-bar">
-            <input type="text" id="search-input" placeholder="Search for treks...">
-        </div>
-    </div>
-    <div class="container">
-        <h2>Discover Your Next Adventure</h2>
         <div class="row">
-            <div class="col-lg-3 col-md-6 mb-4">
-                <a href="{{route('our-treks-details')}}">
-                    <div class="trek-card">
-                        <img src="{{ asset('images/banner1.jpg')}}" alt="Everest Base Camp">
-                        <div class="card-body">
-                            <h3>Everest Base Camp</h3>
-                            <p>Duration: 12 Days | Difficulty: Moderate</p>
-                            <a href="#" class="btn">Learn More</a>
+           <!-- Filter Section (Left side) -->
+           <!-- <div class="col-md-3">
+                <div class="filter-section bg-white p-4 shadow-sm rounded">
+                    <h5 class="fw-semibold">Filters</h5>
+                    <form id="filter-form">
+                      
+                        <div class="mb-3">
+                            <label for="location" class="form-label">Location</label>
+                            <select class="form-select" id="location">
+                                <option value="">Select Location</option>
+                                <option value="Uttarakhand">Uttarakhand</option>
+                                <option value="Chopta">Chopta</option>
+                                <option value="Yamunotri & Gangotri">Yamunotri & Gangotri</option>
+                                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                <option value="Kashmir">Kashmir</option>
+                                <option value="Ladakh">Ladakh</option>
+                                <option value="Sikkim">Sikkim</option>
+                                <option value="Nepal">Nepal</option>
+                            </select>
+                        </div>
+
+                        
+                        <div class="mb-3">
+                            <label for="duration" class="form-label">Duration</label>
+                            <select class="form-select" id="duration">
+                                <option value="">Select Duration</option>
+                                <option value="3 Days">3 Days</option>
+                                <option value="5 Days">5 Days</option>
+                                <option value="6 Days">6 Days</option>
+                                <option value="7 Days">7 Days</option>
+                                <option value="8 Days">8 Days</option>
+                                <option value="9 Days">9 Days</option>
+                                <option value="10 Days">10 Days</option>
+                                <option value="12 Days">12 Days</option>
+                                <option value="14 Days">14 Days</option>
+                                <option value="16 Days">16 Days</option>
+                            </select>
+                        </div>
+
+                        
+                        <div class="mb-3">
+                            <label for="group-size" class="form-label">Max Group Size</label>
+                            <select class="form-select" id="group-size">
+                                <option value="">Select Group Size</option>
+                                <option value="6">Max 6</option>
+                                <option value="8">Max 8</option>
+                                <option value="10">Max 10</option>
+                                <option value="12">Max 12</option>
+                                <option value="15">Max 15</option>
+                                <option value="20">Max 20</option>
+                            </select>
+                        </div>
+
+                        
+                        <button type="submit" class="btn btn-success w-100">Apply Filters</button>
+                    </form>
+                </div>
+            </div> -->
+
+
+            <!-- Trek Packages Section (Right side) -->
+            <div class="col-md-12 col-sm-6">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3"  id="trek-cards-container">
+                    @foreach($treks as $trek)
+                    <div class="col-lg-3">
+                        <div class="card border-0 h-100 shadow-sm bg-white">
+                            <!-- <div class="card-img-top bg-secondary-subtle d-flex align-items-center justify-content-center" style="height: 180px;">
+                                <i class="bi bi-image fs-1 text-secondary"></i>
+                            </div> -->
+                            <img src="{{asset('images/bg4.jpg')}}" alt="">
+                            <div class="card-body text-start">
+                                <div class="text-success mb-1 d-flex align-items-center gap-1 fs-6">
+                                    <i class="bi bi-geo-alt-fill"></i> <span>{{ $trek['locations']['name'] }}</span>
+                                </div>
+                                <h5 class="card-title fw-semibold">{{ $trek['name'] }}</h5>
+
+                                <div class="d-flex justify-content-between text-muted small mb-3">
+                                    <span><i class="bi bi-calendar3"></i> {{ $trek['duration'] }}</span>
+                                    <span><i class="bi bi-people-fill"></i> {{ $trek['max_group_size'] }}</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-success fw-bold text-white">₹ {{ $trek['price'] }}</span>
+                                    <a href="{{ route('our-treks-details', $trek['id']) }}" class="btn btn-outline-success btn-sm px-3 rounded-1">View Details</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </a>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="trek-card">
-                    <img src="{{ asset('images/banner1.jpg') }}" alt="Annapurna Circuit">
-                    <div class="card-body">
-                        <h3>Annapurna Circuit</h3>
-                        <p>Duration: 14 Days | Difficulty: Challenging</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="trek-card">
-                    <img src="{{ asset('images/banner1.jpg') }}" alt="Langtang Valley">
-                    <div class="card-body">
-                        <h3>Langtang Valley</h3>
-                        <p>Duration: 10 Days | Difficulty: Easy</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="trek-card">
-                    <img src="{{ asset('images/banner1.jpg') }}" alt="Annapurna Circuit">
-                    <div class="card-body">
-                        <h3>Annapurna Circuit</h3>
-                        <p>Duration: 14 Days | Difficulty: Challenging</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="trek-card">
-                    <img src="{{ asset('images/banner1.jpg') }}" alt="Annapurna Circuit">
-                    <div class="card-body">
-                        <h3>Annapurna Circuit</h3>
-                        <p>Duration: 14 Days | Difficulty: Challenging</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="trek-card">
-                    <img src="{{ asset('images/banner1.jpg') }}" alt="Annapurna Circuit">
-                    <div class="card-body">
-                        <h3>Annapurna Circuit</h3>
-                        <p>Duration: 14 Days | Difficulty: Challenging</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="trek-card">
-                    <img src="{{ asset('images/banner1.jpg') }}" alt="Annapurna Circuit">
-                    <div class="card-body">
-                        <h3>Annapurna Circuit</h3>
-                        <p>Duration: 14 Days | Difficulty: Challenging</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="trek-card">
-                    <img src="{{ asset('images/banner1.jpg') }}" alt="Annapurna Circuit">
-                    <div class="card-body">
-                        <h3>Annapurna Circuit</h3>
-                        <p>Duration: 14 Days | Difficulty: Challenging</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 @endsection
 
 @section('scripts')
 <script>
-    document.getElementById('search-input').addEventListener('input', function() {
-        let filter = this.value.toLowerCase();
-        let cards = document.querySelectorAll('.trek-card');
-
-        cards.forEach(card => {
-            let title = card.querySelector('h3').textContent.toLowerCase();
-            if (title.includes(filter)) {
-                card.style.display = "block";
-            } else {
-                card.style.display = "none";
-            }
+    AOS.init({
+        duration: 1000,
+        easing: "ease-in-out",
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const elements = document.querySelectorAll(".fade-in");
+        elements.forEach((el, index) => {
+            setTimeout(() => {
+                el.style.opacity = "1";
+                el.style.transform = "translateY(0)";
+            }, 500 * (index + 1));
         });
     });
 </script>
+
+
 @endsection

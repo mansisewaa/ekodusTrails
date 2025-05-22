@@ -1,0 +1,214 @@
+// Main animations file for Ekodus Trails
+document.addEventListener("DOMContentLoaded", function() {
+  // Initialize AOS (Animate On Scroll)
+  AOS.init({
+    duration: 1000,
+    once: false,
+    mirror: true
+  });
+
+  // Parallax effect for mountain backgrounds
+  const parallaxElements = document.querySelectorAll('.parallax-element');
+
+  window.addEventListener('scroll', function() {
+    const scrollPosition = window.pageYOffset;
+
+    parallaxElements.forEach(element => {
+      const speed = element.getAttribute('data-speed') || 0.5;
+      element.style.transform = `translateY(${scrollPosition * speed}px)`;
+    });
+  });
+
+  // Animated counter for statistics
+  const counters = document.querySelectorAll('.counter');
+  const speed = 200;
+
+  const animateCounters = () => {
+    counters.forEach(counter => {
+      const target = +counter.getAttribute('data-target');
+      const count = +counter.innerText;
+      const increment = target / speed;
+
+      if (count < target) {
+        counter.innerText = Math.ceil(count + increment);
+        setTimeout(animateCounters, 1);
+      } else {
+        counter.innerText = target;
+      }
+    });
+  };
+
+  // Start counter animation when section is in viewport
+  const statsSection = document.querySelector('.stats-section');
+  if (statsSection) {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        animateCounters();
+      }
+    });
+
+    observer.observe(statsSection);
+  }
+
+  // Animated trail path for trek routes
+  const drawTrailPath = () => {
+    const paths = document.querySelectorAll('.trail-path path');
+
+    paths.forEach(path => {
+      const length = path.getTotalLength();
+
+      // Set up the starting position
+      path.style.strokeDasharray = length;
+      path.style.strokeDashoffset = length;
+
+      // Trigger the animation
+      path.getBoundingClientRect(); // Force a reflow
+      path.style.transition = 'stroke-dashoffset 2s ease-in-out';
+      path.style.strokeDashoffset = '0';
+    });
+  };
+
+  // Initialize trail path animations
+  const trailMaps = document.querySelectorAll('.trail-map');
+  if (trailMaps.length > 0) {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        drawTrailPath();
+      }
+    });
+
+    trailMaps.forEach(map => {
+      observer.observe(map);
+    });
+  }
+
+  // Floating elements animation (clouds, birds)
+  const animateFloatingElements = () => {
+    const elements = document.querySelectorAll('.floating-element');
+
+    elements.forEach(element => {
+      const randomX = Math.random() * 10 - 5;
+      const randomDelay = Math.random() * 2;
+
+      element.style.animation = `float 8s ease-in-out ${randomDelay}s infinite`;
+      element.style.transform = `translateX(${randomX}px)`;
+    });
+  };
+
+  animateFloatingElements();
+
+  // Smooth scroll for navigation links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      const targetId = this.getAttribute('href');
+      if (targetId === '#') return;
+
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 100,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // Trek card hover effects
+  const trekCards = document.querySelectorAll('.card-overlay');
+
+  trekCards.forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      this.querySelector('.card-content').classList.add('card-content-hover');
+    });
+
+    card.addEventListener('mouseleave', function() {
+      this.querySelector('.card-content').classList.remove('card-content-hover');
+    });
+  });
+
+  // Animated mountain silhouette
+  const mountainSilhouette = document.querySelector('.mountain-silhouette');
+  if (mountainSilhouette) {
+    window.addEventListener('scroll', function() {
+      const scrollPosition = window.pageYOffset;
+      const viewportHeight = window.innerHeight;
+
+      if (scrollPosition > viewportHeight * 0.2) {
+        mountainSilhouette.classList.add('mountain-animate');
+      }
+    });
+  }
+
+  // Weather effect animation
+  const weatherEffects = document.querySelectorAll('.weather-effect');
+
+  weatherEffects.forEach(effect => {
+    const type = effect.getAttribute('data-weather');
+
+    if (type === 'rain') {
+      createRaindrops(effect);
+    } else if (type === 'snow') {
+      createSnowflakes(effect);
+    } else if (type === 'fog') {
+      createFogEffect(effect);
+    }
+  });
+
+  function createRaindrops(container) {
+    for (let i = 0; i < 50; i++) {
+      const drop = document.createElement('div');
+      drop.classList.add('raindrop');
+      drop.style.left = `${Math.random() * 100}%`;
+      drop.style.animationDuration = `${Math.random() * 1 + 0.5}s`;
+      drop.style.animationDelay = `${Math.random() * 2}s`;
+      container.appendChild(drop);
+    }
+  }
+
+  function createSnowflakes(container) {
+    for (let i = 0; i < 50; i++) {
+      const flake = document.createElement('div');
+      flake.classList.add('snowflake');
+      flake.style.left = `${Math.random() * 100}%`;
+      flake.style.animationDuration = `${Math.random() * 5 + 5}s`;
+      flake.style.animationDelay = `${Math.random() * 5}s`;
+      container.appendChild(flake);
+    }
+  }
+
+  function createFogEffect(container) {
+    for (let i = 0; i < 5; i++) {
+      const fog = document.createElement('div');
+      fog.classList.add('fog-cloud');
+      fog.style.top = `${Math.random() * 60 + 20}%`;
+      fog.style.animationDuration = `${Math.random() * 10 + 15}s`;
+      fog.style.animationDelay = `${Math.random() * 10}s`;
+      container.appendChild(fog);
+    }
+  }
+
+  // Initialize the 3D tilt effect for trek cards
+  if (typeof VanillaTilt !== 'undefined') {
+    VanillaTilt.init(document.querySelectorAll(".tilt-card"), {
+      max: 10,
+      speed: 400,
+      glare: true,
+      "max-glare": 0.3
+    });
+  } else {
+    console.warn('VanillaTilt is not defined. Make sure the library is included.');
+  }
+});
+
+// Preloader animation
+window.addEventListener('load', function() {
+  const preloader = document.querySelector('.preloader');
+  if (preloader) {
+    preloader.classList.add('preloader-finish');
+    setTimeout(() => {
+      preloader.style.display = 'none';
+    }, 1500);
+  }
+});
